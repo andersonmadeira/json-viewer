@@ -6,11 +6,16 @@ export const Container = styled.main`
   margin: 0 auto;
 `
 
-export const ContentCard = styled(Card)`
+export const ContentWrapper = styled(Card)`
   padding: 16px 24px;
 `
 
-export const ContentArea = styled.textarea`
+export const FormattedArea = styled(Card)`
+  white-space: pre-wrap;
+  padding: 16px 24px;
+`
+
+export const Content = styled.textarea`
   width: 100%;
   z-index: 5;
   outline: none;
