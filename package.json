@@ -1,5 +1,6 @@
 {
   "name": "json-viewer",
+  "homepage": "https://andersonmadeira.github.io/json-viewer",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
