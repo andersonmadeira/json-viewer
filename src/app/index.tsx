@@ -64,7 +64,7 @@ export default function App() {
       <Label htmlFor="json-input">Paste your JSON:</Label>
       <ContentArea
         id="json-input"
-        style={!isValid ? { color: 'tomato' } : {}}
+        style={textInput !== '' && !isValid ? { color: 'tomato' } : {}}
         value={textInput}
         onChange={text => {
           const isValid = validateJSON(text)
