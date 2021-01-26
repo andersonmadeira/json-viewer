@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import prism from 'prismjs'
 
 import {
@@ -7,54 +7,86 @@ import {
   Content,
   FormattedArea,
   FormatButton,
+  Warning,
+  Label,
 } from './styles'
 
 export interface ContentAreaProps {
+  id: string
   value?: string
   onChange?: (text: string) => void
+  style?: React.CSSProperties | undefined
 }
 
-function ContentArea({ value, onChange }: ContentAreaProps) {
+function ContentArea({ id, value, onChange, style }: ContentAreaProps) {
   return (
     <ContentWrapper>
       <Content
+        id={id}
         value={value}
         onChange={event => onChange && onChange(event.target.value)}
-        placeholder="Paste your JSON here"
         spellCheck="false"
         rows={10}
+        style={style}
       />
     </ContentWrapper>
   )
 }
 
-export default function App() {
-  const [text, setText] = useState('')
-  const [formatted, setFormatted] = useState('')
-  const [highlighted, setHighlighted] = useState('')
+function validateJSON(text: string): boolean {
+  try {
+    formatJSON(text)
+    return true
+  } catch {
+    return false
+  }
+}
 
-  useEffect(() => {
-    setHighlighted(
-      prism.highlight(formatted, prism.languages.javascript, 'javascript')
-    )
-  }, [formatted])
+function formatJSON(text: string): string {
+  return JSON.stringify(JSON.parse(text), null, '  ')
+}
+
+export default function App() {
+  const [textInput, setTextInput] = useState('')
+  const [isValid, setIsValid] = useState<boolean>()
+  const [formatted, setFormatted] = useState('')
+
+  const finalFormattedJSON = useMemo(
+    () =>
+      formatted !== ''
+        ? prism.highlight(formatted, prism.languages.javascript, 'javascript')
+        : '',
+    [formatted]
+  )
 
   return (
     <Container>
-      <ContentArea value={text} onChange={text => setText(text)} />
+      <Label htmlFor="json-input">Paste your JSON:</Label>
+      <ContentArea
+        id="json-input"
+        style={!isValid ? { color: 'tomato' } : {}}
+        value={textInput}
+        onChange={text => {
+          const isValid = validateJSON(text)
+          setIsValid(isValid)
+          setFormatted(formatted => (!isValid ? '' : formatted))
+          setTextInput(text)
+        }}
+      />
       <FormatButton
-        onClick={() =>
-          setFormatted(
-            JSON.stringify(JSON.parse(text), null, '  ').replace(
-              /"(\w+)"\s*:/g,
-              '$1:'
-            )
-          )
-        }
+        disabled={textInput === '' || !isValid}
+        onClick={() => setFormatted(formatJSON(textInput))}
       >
         Format
       </FormatButton>
-      <FormattedArea dangerouslySetInnerHTML={{ __html: highlighted }} />
+      {finalFormattedJSON !== '' && isValid && (
+        <FormattedArea
+          dangerouslySetInnerHTML={{ __html: finalFormattedJSON }}
+        />
+      )}
+      {textInput !== '' && !isValid && (
+        <Warning>The text entered is not a valid JSON</Warning>
+      )}
     </Container>
   )
 }

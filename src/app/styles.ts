@@ -4,6 +4,7 @@ import { Button, Card } from '../components'
 export const Container = styled.main`
   max-width: 700px;
   margin: 0 auto;
+  padding: 20px;
 `
 
 export const ContentWrapper = styled(Card)`
@@ -48,4 +49,13 @@ export const Content = styled.textarea`
 
 export const FormatButton = styled(Button)`
   margin-top: 20px;
+`
+
+export const Warning = styled.p`
+  color: tomato;
+  font-weight: bold;
+`
+
+export const Label = styled.label`
+  font-size: 1.2rem;
 `
