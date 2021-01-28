@@ -1,5 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import prism from 'prismjs'
+
+import SearchArea from '../components/searchArea'
 
 import {
   Container,
@@ -9,6 +11,7 @@ import {
   FormatButton,
   Warning,
   Label,
+  ButtonAndSearchContainer,
 } from './styles'
 
 export interface ContentAreaProps {
@@ -73,12 +76,18 @@ export default function App() {
           setTextInput(text)
         }}
       />
-      <FormatButton
-        disabled={textInput === '' || !isValid}
-        onClick={() => setFormatted(formatJSON(textInput))}
-      >
-        Format
-      </FormatButton>
+      <ButtonAndSearchContainer>
+        <FormatButton
+          disabled={textInput === '' || !isValid}
+          onClick={() => setFormatted(formatJSON(textInput))}
+        >
+          Format
+        </FormatButton>
+
+        <SearchArea />
+
+      </ButtonAndSearchContainer>
+      
       {finalFormattedJSON !== '' && isValid && (
         <FormattedArea
           dangerouslySetInnerHTML={{ __html: finalFormattedJSON }}

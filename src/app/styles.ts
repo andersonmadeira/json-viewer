@@ -16,6 +16,19 @@ export const FormattedArea = styled(Card)`
   padding: 16px 24px;
 `
 
+export const ButtonAndSearchContainer = styled.div`
+  width: 100%;
+  height: 60px;
+
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 310px) {
+    flex-direction: column;
+    height: 130px;
+  }
+`
+
 export const Content = styled.textarea`
   width: 100%;
   z-index: 5;
