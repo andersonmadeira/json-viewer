@@ -19,6 +19,10 @@ export function GlobalStyles() {
           color: #39424e;
           font-size: 14px;
         }
+        #red {
+          background-color: #f0e21f;
+          border-radius: 3px;
+        }
       `}
     />
   )
