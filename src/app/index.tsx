@@ -10,6 +10,7 @@ import {
   Warning,
   Label,
 } from './styles'
+import { formatJSON, validateJSON } from '../utils'
 
 export interface ContentAreaProps {
   id: string
@@ -36,19 +37,6 @@ function ContentArea({
       />
     </ContentWrapper>
   )
-}
-
-function validateJSON(text: string): boolean {
-  try {
-    formatJSON(text)
-    return true
-  } catch {
-    return false
-  }
-}
-
-function formatJSON(text: string): string {
-  return JSON.stringify(JSON.parse(text), null, '  ')
 }
 
 export default function App(): JSX.Element {

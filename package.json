@@ -9,12 +9,14 @@
     "@emotion/styled": "^11.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
+    "@testing-library/react-hooks": "^5.0.3",
+    "@testing-library/user-event": "^12.6.3",
+    "@types/jest": "^26.0.20",
     "@types/node": "^12.0.0",
     "@types/prismjs": "^1.16.2",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "gh-pages": "^3.1.0",
     "prettier": "^2.2.1",
     "prismjs": "^1.23.0",
@@ -27,13 +29,40 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage --verbose",
+    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache --verbose",
+    "test:ci": "react-scripts test --coverage --reporters=default --reporters=jest-junit --watchAll=false --verbose",
+    "test:develop": "yarn test:ci --changedSince=origin/develop",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build -b master",
     "lint:check": "eslint '*/**/*.{ts,tsx}'",
     "format:check": "prettier --check src/**/*.{ts,tsx}",
     "format:fix": "prettier --write src/**/*.{ts,tsx}"
+  },
+  "jest": {
+    "coverageReporters": [
+      "cobertura",
+      "text"
+    ],
+    "testMatch": [
+      "**/?(*.)+(test).ts?(x)"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/**/__stories__/",
+      "!<rootDir>/node_modules/",
+      "!src/**/test-utils/**/*.{ts,tsx}"
+    ]
   },
   "husky": {
     "hooks": {
