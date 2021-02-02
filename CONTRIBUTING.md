@@ -67,6 +67,8 @@ If you have any idea of new feature of even want to report a bug, please address
 1. Fill the PR form as instructed
 1. When addressing feedback, push additional commits instead of overwriting or squashing. Be descriptive in your commit messages: prefer "fix style colors" to "address someone elses review" because the former provides better context
 
+> _Please note that pull requests with **more than 7 days** with pending changes requested will be closed with no further notice._
+
 ## Style guides
 
 ### Commit messages
