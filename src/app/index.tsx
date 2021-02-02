@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import prism from 'prismjs'
 
 import {
@@ -18,7 +18,12 @@ export interface ContentAreaProps {
   style?: React.CSSProperties | undefined
 }
 
-function ContentArea({ id, value, onChange, style }: ContentAreaProps) {
+function ContentArea({
+  id,
+  value,
+  onChange,
+  style,
+}: ContentAreaProps): JSX.Element {
   return (
     <ContentWrapper>
       <Content
@@ -46,7 +51,7 @@ function formatJSON(text: string): string {
   return JSON.stringify(JSON.parse(text), null, '  ')
 }
 
-export default function App() {
+export default function App(): JSX.Element {
   const [textInput, setTextInput] = useState('')
   const [isValid, setIsValid] = useState<boolean>()
   const [formatted, setFormatted] = useState('')
