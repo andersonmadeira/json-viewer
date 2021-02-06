@@ -10,6 +10,7 @@ import {
   Warning,
   Label,
 } from './styles'
+import { formatJSON, validateJSON } from '../utils'
 
 export interface ContentAreaProps {
   id: string
@@ -18,12 +19,7 @@ export interface ContentAreaProps {
   style?: React.CSSProperties | undefined
 }
 
-function ContentArea({
-  id,
-  value,
-  onChange,
-  style,
-}: ContentAreaProps): JSX.Element {
+function ContentArea({ id, value, onChange, style }: ContentAreaProps): JSX.Element {
   return (
     <ContentWrapper>
       <Content
@@ -38,19 +34,6 @@ function ContentArea({
   )
 }
 
-function validateJSON(text: string): boolean {
-  try {
-    formatJSON(text)
-    return true
-  } catch {
-    return false
-  }
-}
-
-function formatJSON(text: string): string {
-  return JSON.stringify(JSON.parse(text), null, '  ')
-}
-
 export default function App(): JSX.Element {
   const [textInput, setTextInput] = useState('')
   const [isValid, setIsValid] = useState<boolean>()
@@ -58,9 +41,7 @@ export default function App(): JSX.Element {
 
   const finalFormattedJSON = useMemo(
     () =>
-      formatted !== ''
-        ? prism.highlight(formatted, prism.languages.javascript, 'javascript')
-        : '',
+      formatted !== '' ? prism.highlight(formatted, prism.languages.javascript, 'javascript') : '',
     [formatted]
   )
 
@@ -85,13 +66,9 @@ export default function App(): JSX.Element {
         Format
       </FormatButton>
       {finalFormattedJSON !== '' && isValid && (
-        <FormattedArea
-          dangerouslySetInnerHTML={{ __html: finalFormattedJSON }}
-        />
+        <FormattedArea dangerouslySetInnerHTML={{ __html: finalFormattedJSON }} />
       )}
-      {textInput !== '' && !isValid && (
-        <Warning>The text entered is not a valid JSON</Warning>
-      )}
+      {textInput !== '' && !isValid && <Warning>The text entered is not a valid JSON</Warning>}
     </Container>
   )
 }

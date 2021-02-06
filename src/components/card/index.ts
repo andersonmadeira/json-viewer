@@ -8,6 +8,5 @@ export const Card = styled.div`
   border-radius: 8px;
   margin-top: 20px;
   overflow-wrap: break-word;
-  transition: box-shadow 0.4s ease-in-out 0s,
-    background-color 0.4s ease-in-out 0s;
+  transition: box-shadow 0.4s ease-in-out 0s, background-color 0.4s ease-in-out 0s;
 `
