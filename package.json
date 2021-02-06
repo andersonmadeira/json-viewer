@@ -31,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --coverage --verbose",
     "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache --verbose",
-    "test:ci": "react-scripts test --coverage --reporters=default --reporters=jest-junit --watchAll=false --verbose",
+    "test:ci": "react-scripts test --coverage --reporters=default --watchAll=false --verbose",
     "test:develop": "yarn test:ci --changedSince=origin/develop",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -61,7 +61,9 @@
       "!src/**/*.d.ts",
       "!src/**/__stories__/",
       "!<rootDir>/node_modules/",
-      "!src/**/test-utils/**/*.{ts,tsx}"
+      "!src/**/test-utils/**/*.{ts,tsx}",
+      "!src/index.tsx",
+      "!src/reportWebVitals.ts"
     ]
   },
   "husky": {
