@@ -6,6 +6,10 @@ import App from '../app'
 
 const INVALID_JSON = '{'
 const VALID_JSON = '{ "one": 1, "two": "2" }'
+const FORMATTED_JSON = `{
+  "one": 1,
+  "two": "2"
+}`
 
 test('should display invalid json warning', async () => {
   renderWithTheme({ ui: <App /> })
@@ -31,4 +35,10 @@ test('should format valid json', async () => {
   expect(screen.queryByText('The text entered is not a valid JSON')).not.toBeInTheDocument()
 
   userEvent.click(screen.getByRole('button', { name: 'Format' }), { button: 0 })
+
+  expect(
+    screen.getByText((_, node) => {
+      return node ? node.textContent === FORMATTED_JSON : false
+    })
+  ).toBeInTheDocument()
 })
