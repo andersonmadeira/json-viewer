@@ -10,15 +10,11 @@ const VALID_JSON = '{ "one": 1, "two": "2" }'
 test('should display invalid json warning', async () => {
   renderWithTheme({ ui: <App /> })
 
-  await waitFor(() =>
-    expect(screen.getByText('Paste your JSON:')).toBeInTheDocument()
-  )
+  await waitFor(() => expect(screen.getByText('Paste your JSON:')).toBeInTheDocument())
 
   userEvent.type(screen.getByLabelText('Paste your JSON:'), INVALID_JSON)
 
-  expect(
-    screen.getByText('The text entered is not a valid JSON')
-  ).toBeInTheDocument()
+  expect(screen.getByText('The text entered is not a valid JSON')).toBeInTheDocument()
 
   expect(screen.getByRole('button', { name: 'Format' })).toBeDisabled()
 })
@@ -26,17 +22,13 @@ test('should display invalid json warning', async () => {
 test('should format valid json', async () => {
   renderWithTheme({ ui: <App /> })
 
-  await waitFor(() =>
-    expect(screen.getByText('Paste your JSON:')).toBeInTheDocument()
-  )
+  await waitFor(() => expect(screen.getByText('Paste your JSON:')).toBeInTheDocument())
 
   userEvent.type(screen.getByLabelText('Paste your JSON:'), VALID_JSON)
 
   expect(screen.getByRole('button', { name: 'Format' })).toBeEnabled()
 
-  expect(
-    screen.queryByText('The text entered is not a valid JSON')
-  ).not.toBeInTheDocument()
+  expect(screen.queryByText('The text entered is not a valid JSON')).not.toBeInTheDocument()
 
   userEvent.click(screen.getByRole('button', { name: 'Format' }), { button: 0 })
 })

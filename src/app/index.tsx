@@ -19,12 +19,7 @@ export interface ContentAreaProps {
   style?: React.CSSProperties | undefined
 }
 
-function ContentArea({
-  id,
-  value,
-  onChange,
-  style,
-}: ContentAreaProps): JSX.Element {
+function ContentArea({ id, value, onChange, style }: ContentAreaProps): JSX.Element {
   return (
     <ContentWrapper>
       <Content
@@ -46,9 +41,7 @@ export default function App(): JSX.Element {
 
   const finalFormattedJSON = useMemo(
     () =>
-      formatted !== ''
-        ? prism.highlight(formatted, prism.languages.javascript, 'javascript')
-        : '',
+      formatted !== '' ? prism.highlight(formatted, prism.languages.javascript, 'javascript') : '',
     [formatted]
   )
 
@@ -73,13 +66,9 @@ export default function App(): JSX.Element {
         Format
       </FormatButton>
       {finalFormattedJSON !== '' && isValid && (
-        <FormattedArea
-          dangerouslySetInnerHTML={{ __html: finalFormattedJSON }}
-        />
+        <FormattedArea dangerouslySetInnerHTML={{ __html: finalFormattedJSON }} />
       )}
-      {textInput !== '' && !isValid && (
-        <Warning>The text entered is not a valid JSON</Warning>
-      )}
+      {textInput !== '' && !isValid && <Warning>The text entered is not a valid JSON</Warning>}
     </Container>
   )
 }
